@@ -16,6 +16,5 @@ vector objects.
 * `external/` contains Raylib and Dear ImGUI. Both include CMakeLists and are compiled as dependencies to the application
 * `lib/mm/` contains the small math library for the class. It is a stripped down version that contains the functionality necessary for this application.
 * `src/` contains the main source code for the project.
-* `Lecture.pdf` contains the lecture that accompanies the project.
 
 The completed version of `main.cpp` that is live-coded during the lecture is included in `src/finished` for reference.
