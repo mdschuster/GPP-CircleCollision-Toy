@@ -211,17 +211,5 @@ int main()
  * @return True if Shapes are colliding, false otherwise
  */
 bool isColliding(const Shape& a, const Shape& b){
-    if (typeid(a)!=typeid(Circle) || typeid(b)!=typeid(Circle))
-        return false;
-    auto& cA=dynamic_cast<const Circle&>(a);
-    auto& cB=dynamic_cast<const Circle&>(b);
-
-    Vec2 posA={cA.x,cA.y};
-    Vec2 posB={cB.x,cB.y};
-    Vec2 dir=posB-posA;
-    float sqDistance=dir.squareLength();
-    float rA=cA.radius*cA.scaleFactor;
-    float rB=cB.radius*cB.scaleFactor;
-    float sqSumRadii=(rA+rB)*(rA+rB);
-    return sqDistance<sqSumRadii;
+    return false;
 }
