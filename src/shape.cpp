@@ -12,12 +12,10 @@
  */
 Shape::Shape(const std::string& name, float x, float y,float speedX, float speedY, float* color){
     this->name=name;
-    this->speedX=speedX;
-    this->speedY=speedY;
     this->lineColor=color;
     this->color=new float[3];
-    this->x=x;
-    this->y=y;
+    this->pos={x,y};
+    this->speed={speedX,speedY};
     scaleFactor=1.0f;
     active=true;
     std::copy(lineColor, lineColor + 3, this->color);

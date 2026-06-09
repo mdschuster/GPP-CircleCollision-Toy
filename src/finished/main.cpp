@@ -57,7 +57,7 @@ int main()
     //--------------------------------------------------------------------------------------
     SetConfigFlags(FLAG_WINDOW_HIGHDPI);
     InitWindow(screenWidth, screenHeight, windowName.c_str());
-    
+
     //initialize the raylib ImGui backend
     rlImGuiSetup(true);
     //increase ImGui item size to 2x
@@ -67,7 +67,7 @@ int main()
     io.IniFilename = nullptr;
 
     // Set raylib to target 60 frames-per-second (this does not mean it will actually RUN at 60 fps)
-    SetTargetFPS(60);               
+    SetTargetFPS(60);
 
     //load a font (Raylib gives warning if font can't be found, then uses default as fallback)
     Font font = LoadFont(fontName.c_str());
@@ -174,10 +174,10 @@ int main()
                     //slider, again directly modifies the value and limits between 0 and 300 for this example
                     ImGui::SliderFloat("Scale",&(s->scaleFactor),0.1f,5.0f);
 
-                    float v[2]={s->speedX,s->speedY};
+                    float v[2]={s->speed.x,s->speed.y};
                     ImGui::DragFloat2("Velocity",v);
-                    s->speedX=v[0];
-                    s->speedY=v[1];
+                    s->speed.x=v[0];
+                    s->speed.y=v[1];
 
                     //color picker button, directly modifies the color (3 element float array)
                     ImGui::ColorEdit3("Color",s->color);
@@ -216,9 +216,7 @@ bool isColliding(const Shape& a, const Shape& b){
     auto& cA=dynamic_cast<const Circle&>(a);
     auto& cB=dynamic_cast<const Circle&>(b);
 
-    Vec2 posA={cA.x,cA.y};
-    Vec2 posB={cB.x,cB.y};
-    Vec2 dir=posB-posA;
+    Vec2 dir=cB.pos-cA.pos;
     float sqDistance=dir.squareLength();
     float rA=cA.radius*cA.scaleFactor;
     float rB=cB.radius*cB.scaleFactor;

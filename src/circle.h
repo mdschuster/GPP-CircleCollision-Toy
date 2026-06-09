@@ -9,7 +9,7 @@
 
 class Circle : public Shape{
 public:
-    float radius;           /*Rectangle height*/
+    float radius;           /*Circle Radius*/
 
     Circle(const std::string& name,float x,float y,float r, float speedX,float speedY,float* color);
     void Move(int width,int height) override;

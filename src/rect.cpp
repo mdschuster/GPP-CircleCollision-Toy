@@ -39,25 +39,25 @@ Rect::Rect(const std::string &name, float x, float y, float h, float w, float sp
  * @param height Screen Height
  */
 void Rect::Move(int width, int height) {
-    x += speedX;
-    y += speedY;
+    pos.x += speed.x;
+    pos.y += speed.y;
     angle += angularVelocity;
-    rect.x = x;
-    rect.y = y;
+    rect.x = pos.x;
+    rect.y = pos.y;
     rect.width = w * scaleFactor;
     rect.height = h * scaleFactor;
     //update vertices
     float hh = rect.height / 2.0f;
     float hw = rect.width / 2.0f;
     float currentAngle = DEG2RAD * angle;
-    vertices = {Vec2{x - hw * cosf(currentAngle) + hh * sinf(currentAngle),
-                     y - hw * sinf(currentAngle) - hh * cosf(currentAngle)},
-                Vec2{x + hw * cosf(currentAngle) + hh * sinf(currentAngle),
-                     y + hw * sinf(currentAngle) - hh * cosf(currentAngle)},
-                Vec2{x + hw * cosf(currentAngle) - hh * sinf(currentAngle),
-                     y + hw * sinf(currentAngle) + hh * cosf(currentAngle)},
-                Vec2{x - hw * cosf(currentAngle) - hh * sinf(currentAngle),
-                     y - hw * sinf(currentAngle) + hh * cosf(currentAngle)}};
+    vertices = {Vec2{pos.x - hw * cosf(currentAngle) + hh * sinf(currentAngle),
+                     pos.y - hw * sinf(currentAngle) - hh * cosf(currentAngle)},
+                Vec2{pos.x + hw * cosf(currentAngle) + hh * sinf(currentAngle),
+                     pos.y + hw * sinf(currentAngle) - hh * cosf(currentAngle)},
+                Vec2{pos.x + hw * cosf(currentAngle) - hh * sinf(currentAngle),
+                     pos.y + hw * sinf(currentAngle) + hh * cosf(currentAngle)},
+                Vec2{pos.x - hw * cosf(currentAngle) - hh * sinf(currentAngle),
+                     pos.y - hw * sinf(currentAngle) + hh * cosf(currentAngle)}};
 
     //do collision tests using extent of rectangle
     float ex = std::abs(cos(currentAngle)) * hw +
@@ -66,13 +66,13 @@ void Rect::Move(int width, int height) {
     float ey = std::abs(sin(currentAngle)) * hw +
                std::abs(cos(currentAngle)) * hh;
 
-    if (x - ex < 0 || x + ex > width) {
-        speedX *= -1;
-        x = std::clamp(x, ex, width - ex);
+    if (pos.x - ex < 0 || pos.x + ex > width) {
+        speed.x *= -1;
+        pos.x = std::clamp(pos.x, ex, width - ex);
     }
-    if (y - ey < 0 || y + ey > height) {
-        speedY *= -1;
-        y = std::clamp(y, ey, height - ey);
+    if (pos.y - ey < 0 || pos.y + ey > height) {
+        speed.y *= -1;
+        pos.y = std::clamp(pos.y, ey, height - ey);
     }
 }
 
@@ -103,7 +103,7 @@ void Rect::Draw(const Font &font, int fontSize, const Color &fontColor, bool dra
     //Draw Text
     if (drawText) {
         Vector2 textSize = MeasureTextEx(font, name.c_str(), fontSize, 1);
-        DrawTextEx(font, name.c_str(), {x - textSize.x / 2, y - textSize.y / 2}, fontSize, 1, fontColor);
+        DrawTextEx(font, name.c_str(), {pos.x - textSize.x / 2, pos.y - textSize.y / 2}, fontSize, 1, fontColor);
     }
     //Draw vertices
     for (Vec2 &v: vertices) {

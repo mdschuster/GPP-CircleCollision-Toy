@@ -174,10 +174,10 @@ int main()
                     //slider, again directly modifies the value and limits between 0 and 300 for this example
                     ImGui::SliderFloat("Scale",&(s->scaleFactor),0.1f,5.0f);
 
-                    float v[2]={s->speedX,s->speedY};
+                    float v[2]={s->speed.x,s->speed.y};
                     ImGui::DragFloat2("Velocity",v);
-                    s->speedX=v[0];
-                    s->speedY=v[1];
+                    s->speed.x=v[0];
+                    s->speed.y=v[1];
 
                     //color picker button, directly modifies the color (3 element float array)
                     ImGui::ColorEdit3("Color",s->color);

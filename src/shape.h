@@ -9,10 +9,8 @@ public:
     std::string name;             /*Name/ID of shape*/
     std::vector<Vec2> vertices;   /*Vector of shape vertices*/
     float scaleFactor;            /*Shape scale controlled in UI*/
-    float speedX;                 /*X speed*/
-    float speedY;                 /*Y speed*/
-    float x;                      /*X position*/
-    float y;                      /*Y position*/
+    Vec2 speed;                   /*Velocity Vector*/
+    Vec2 pos;                     /*Position Vector*/
     float* color;                 /*Fill color RGB_F32*/
     float* lineColor;             /*Line color RGB_F32*/
     float angle;                  /*Current rotation angle*/

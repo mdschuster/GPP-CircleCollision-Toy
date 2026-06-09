@@ -22,18 +22,18 @@ Circle::Circle(const std::string &name, float x, float y, float r, float speedX,
  * @param height Screen Height
  */
 void Circle::Move(int width, int height) {
-    x += speedX;
-    y += speedY;
+    pos.x += speed.x;
+    pos.y += speed.y;
     //update vertices
     float scaledR=scaleFactor*radius;
 
-    if (x < 0+scaledR || x + scaledR > width) {
-        speedX *= -1;
-        x = std::clamp(x, scaledR, width - scaledR);
+    if (pos.x < 0+scaledR || pos.x + scaledR > width) {
+        speed.x *= -1;
+        pos.x = std::clamp(pos.x, scaledR, width - scaledR);
     }
-    if (y < 0+scaledR || y + scaledR > height) {
-        speedY *= -1;
-        y = std::clamp(y, scaledR , height - scaledR);
+    if (pos.y < 0+scaledR || pos.y + scaledR > height) {
+        speed.y *= -1;
+        pos.y = std::clamp(pos.y, scaledR , height - scaledR);
     }
 }
 
@@ -48,17 +48,17 @@ void Circle::Move(int width, int height) {
 void Circle::Draw(const Font &font, int fontSize, const Color &fontColor, bool drawText) {
     float scaledR=scaleFactor*radius;
     //Draw Filled Circle
-    DrawCircle(x,y,scaledR,ColorFromNormalized({color[0], color[1], color[2], 1.0f}));
+    DrawCircle(pos.x,pos.y,scaledR,ColorFromNormalized({color[0], color[1], color[2], 1.0f}));
 
     //Draw Circle Lines
     Color c = ColorFromNormalized({lineColor[0], lineColor[1], lineColor[2], 1.0f});
     //can't use dra circle lines because it can't do line thickness
     //So, will draw a many sided polygon
-    DrawPolyLinesEx({x,y}, 60, scaledR, 0.0f, 4, c);
+    DrawPolyLinesEx({pos.x,pos.y}, 60, scaledR, 0.0f, 4, c);
 
     //Draw Text
     if (drawText) {
         Vector2 textSize = MeasureTextEx(font, name.c_str(), fontSize, 1);
-        DrawTextEx(font, name.c_str(), {x - textSize.x / 2, y - textSize.y / 2}, fontSize, 1, fontColor);
+        DrawTextEx(font, name.c_str(), {pos.x - textSize.x / 2, pos.y - textSize.y / 2}, fontSize, 1, fontColor);
     }
 }
